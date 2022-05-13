@@ -5,14 +5,14 @@
 template <typename dataclass>
 
 class linkClass {
-private:
+public:
     class nodeClass {// node general structure
     public:
         dataclass data;
         nodeClass* next = nullptr;// point to the next node
         nodeClass* previous = nullptr;// point to the previous node
     };
-public:
+
     nodeClass* last = nullptr;// points to the last node
     nodeClass* first = nullptr;// points to the first node
 
