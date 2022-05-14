@@ -11,9 +11,10 @@ void pause() {
 void cls() {
     cout << "\033c";
 };
-void wait() {// hace esperar al usuario 2 segundos
+void wait(int time = 2000) {// hace esperar al usuario 2 segundos
+    time *= 1000;
     cout << "loading \n";
-    Sleep(2000);
+    Sleep(time);
     cls();
 };
 void errormens() {

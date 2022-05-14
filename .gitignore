@@ -33,3 +33,6 @@
 
 # Drive junk
 *.ini
+
+# cpp library repo
+Cpplibrary

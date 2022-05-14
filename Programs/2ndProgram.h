@@ -111,7 +111,6 @@ private:
         cout << "el mas Joven es: " << data_memory.younger.name << " con " << data_memory.younger.age.year << " años" << endl;
 
     };
-public:   
     void main() {
         file.declare("datap2","txt");
         file.readToMemory();
@@ -146,5 +145,9 @@ public:
                 break;
             }
         }
+    };
+public:   
+    void run(){
+        main();
     };
 }
