@@ -69,6 +69,7 @@ private:
     };
 
     memory data_memory;
+    fileManager<person> file;
     
     void inputData() {
         person data_input;
@@ -89,6 +90,7 @@ private:
             cin >> data_input.birthday.day;
         } 
         data_memory.people.addToEnd(data_input);
+        file.update(data_input);
     };  
     void showData() {
         data_memory.update();
@@ -110,7 +112,11 @@ private:
 
     };
 public:   
-    void main() {      
+    void main() {
+        file.declare("datap2","txt");
+        file.readToMemory();
+        data_memory.people = file.inMemoryFile;
+        file.inMemoryFile.purgeAll();
         const int menuOptions = 3;
         string menuTitle = "\n\t programa 2: ejercicio de lista de fechas \n";
         string menuText[menuOptions + 1] = {
