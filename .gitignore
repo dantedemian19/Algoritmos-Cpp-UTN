@@ -35,7 +35,7 @@
 *.ini
 
 # cpp library repo
-Cpplibrary/*
+CppLibrary/
 
 # Visual Studio  cache/options directory
 .vs/
@@ -102,3 +102,6 @@ ipch/
 *.pidb
 *.svclog
 *.scc
+
+# save files (for debuging)
+*.txt
