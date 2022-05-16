@@ -2,6 +2,6 @@
 
 int main() {
 	cluster app;
-	app.main();
+	app.run();
 	return 0;
 };

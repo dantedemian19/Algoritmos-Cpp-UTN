@@ -4,7 +4,7 @@
 #include "2ndProgram.h"
 #include "3thProgram.h"
 
-class cluster {
+class cluster{
 private:
     class programClass {
     public:
@@ -13,7 +13,6 @@ private:
         program3 three;
     };
 
-public:
 	void main() {
         menuClass menu;
         programClass programs;
@@ -23,7 +22,7 @@ public:
             "start",
             " programa 1: ejercicio de promedios",
             " programa 2: ejercicio de lista de fechas",
-            " programa 3: ejercicio ",
+            " programa 3: ejercicio con una lista de fechas",
             "end"
         };
         menu.declare(menuOptions,0, menuTitle);
@@ -34,7 +33,7 @@ public:
             {
             case 1:
                 programs.one.run();
-                break
+                break;
             case 2:
                 programs.two.run();
                 break;
@@ -49,5 +48,9 @@ public:
                 break;
             }
         }
+    };
+public:
+    void run() {
+        main();
     };
 };
