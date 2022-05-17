@@ -50,13 +50,13 @@ class program3 {
             };
             friend istream& operator>> (istream& in, person& data) {// to read from file
                 in >> data.name;
-                in >> data.birthday.year;
-                in >> data.birthday.month;
                 in >> data.birthday.day;
+                in >> data.birthday.month;
+                in >> data.birthday.year;
                 return in;
             };
             friend ostream& operator << (ostream& out, person& data) { // to write into a file
-                out << data.name << " " << data.birthday.year << " " << data.birthday.month << " " << data.birthday.day << "\n";
+                out << data.name << " " << data.birthday.day << " " << data.birthday.month << " " << data.birthday.year << "\n";
                 return out;
             };
         };
@@ -76,14 +76,15 @@ class program3 {
                     people.first->data.update();
                     oldest = people.first->data;
                     younger = people.first->data;
+                    preTwenties = twenties = thirties = 0;
                     while (cursor != nullptr)
                     {
                         cursor->data.update();
-                        if (cursor->data.age.year <= 20) preTwenties += 1;
-                        else if (cursor->data.age.year <= 30) twenties += 1;
-                        else if (cursor->data.age.year > 30) thirties += 1;
-                        if (oldest.isYoungerThan(cursor->data)) oldest = cursor->data;
-                        if (younger.isOlderThan(cursor->data)) younger = cursor->data;
+                        if (cursor->data.age.year <= 20)                    preTwenties += 1; 
+                        else if (cursor->data.age.year <= 30)               twenties += 1;
+                        else if (cursor->data.age.year > 30)                thirties += 1;
+                        if (oldest.isYoungerThan(cursor->data))    oldest = cursor->data;
+                        if (younger.isOlderThan(cursor->data))     younger = cursor->data;
                         cursor = cursor->next;
                     }
                 }
@@ -167,9 +168,12 @@ class program3 {
                 cout << "__________________________________________" << "\n";
                 cout << "\t el mas viejo es: " << data_memory.oldest.name << " con " << data_memory.oldest.age.year << " anios" << "\n";
                 cout << "\t el mas joven es: " << data_memory.younger.name << " con " << data_memory.younger.age.year << " anios" << "\n";
+                cout << "\t la contidad de personas con 20 o menos es de: " << data_memory.preTwenties<< "\n";
+                cout << "\t la contidad de personas con 21 hasta 30 es de: " << data_memory.twenties << "\n";
+                cout << "\t la contidad de personas con 30 o mas es de: " << data_memory.thirties << "\n";
                 pause();
             }
-            else cout << " no hay datos ingresados";
+            else cout << "\t\t no hay datos ingresados";
         };
         void main() {
             data_memory.file.declare("datap3", "txt");
@@ -181,7 +185,7 @@ class program3 {
             string menuText[menuOptions + 1] = {
                 "start",
                 " Ingresar datos de persona",
-                " ver promedio y resultados",
+                " ver resultados",
                 "end"
             };
             menu.declare(menuOptions, 1, menuTitle);

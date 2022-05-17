@@ -51,15 +51,15 @@ private:
             else if (age.day > comparable.age.day && age.year == comparable.age.year && age.month == comparable.age.month)       return true;
             else                                        return false;
         };
-       friend istream& operator>> (istream &in,person &data) {// to read from file
+        friend istream& operator>> (istream& in, person& data) {// to read from file
             in >> data.name;
-            in >> data.birthday.year;  
-            in >> data.birthday.month;
             in >> data.birthday.day;
+            in >> data.birthday.month;
+            in >> data.birthday.year;
             return in;
-        };  
-        friend ostream& operator << (ostream& out, person &data) { // to write into a file
-            out << data.name << " " <<  data.birthday.year << " " << data.birthday.month << " " << data.birthday.day << "\n";
+        };
+        friend ostream& operator << (ostream& out, person& data) { // to write into a file
+            out << data.name << " " << data.birthday.day << " " << data.birthday.month << " " << data.birthday.year << "\n";
             return out;
         };
     };
