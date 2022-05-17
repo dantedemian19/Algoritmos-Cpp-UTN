@@ -3,6 +3,7 @@
 #include "1stProgram.h"
 #include "2ndProgram.h"
 #include "3thProgram.h"
+#include "4thProgram.h"
 
 class cluster{
 private:
@@ -11,18 +12,20 @@ private:
         program1 one;
         program2 two;
         program3 three;
+        program4 four;
     };
 
 	void main() {
         menuClass menu;
         programClass programs;
-        const int menuOptions = 4;
+        const int menuOptions = 5;
         string menuTitle = "\n\t Programas: Algoritmos y Estructura de Datos 2022 K1091 Dante Alfonso \n";
         string menuText[menuOptions + 1] = {
             "start",
             " programa 1: ejercicio de promedios",
             " programa 2: ejercicio de lista de fechas",
             " programa 3: ejercicio con una lista de fechas",
+            " programa 4: ejercicio con una lista de fechas",
             "end"
         };
         menu.declare(menuOptions,0, menuTitle);
@@ -39,6 +42,9 @@ private:
                 break;
             case 3:
                 programs.three.run();
+                break;
+            case 4:
+                programs.four.run();
                 break;
             case menuOptions:
                 cls();
