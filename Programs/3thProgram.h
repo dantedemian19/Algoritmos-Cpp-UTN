@@ -1,24 +1,11 @@
 #pragma once
 #include "../CppLibrary/Menu.h" 
+#include "../CppLibrary/dynamicTypes.h"
+#include "../CppLibrary/fileManager.h"
 using std::istream; using std::ostream;
 
 class program3 {
     private:
-        class date {
-        public:
-            long int day = 0;
-            long int month = 0;
-            long int year = 0;
-            void getToday() {
-                tm today;
-                time_t now = time(0);
-                localtime_s(&today, &now);
-                day = today.tm_mday;
-                month = today.tm_mon + 1;
-                year = today.tm_year + 1900;
-            };
-        };
-
         class person {
         public:
             date birthday;
@@ -26,16 +13,8 @@ class program3 {
             string name;
             void update() {
                 age.getToday();
-                age.year -= birthday.year;
-                age.month -= birthday.month;
-                age.day -= birthday.day;
-                if (age.month < 0) age.month += 12;
-                if (age.day < 0) {
-                    if (age.month = 2) {
-                        age.day += 31;
-                    }
+                age -= birthday;
                 }
-            };
             bool isYoungerThan(person comparable) {
                 if (age.year < comparable.age.year)          return true;
                 else if (age.month < comparable.age.month && age.year == comparable.age.year)    return true;
