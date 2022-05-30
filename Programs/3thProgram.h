@@ -1,7 +1,14 @@
 #pragma once
+<<<<<<< Updated upstream
 #include "../CppLibrary/Menu.h" 
 #include "../CppLibrary/dynamicTypes.h"
 #include "../CppLibrary/fileManager.h"
+=======
+#include "../CppLibrary/Menu.h"
+#include "../CppLibrary/dynamicTypes.h"
+#include "../CppLibrary/fileManager.h"
+#include <ctime>
+>>>>>>> Stashed changes
 using std::istream; using std::ostream;
 
 class program3 {
@@ -13,7 +20,26 @@ class program3 {
             string name;
             void update() {
                 age.getToday();
+<<<<<<< Updated upstream
                 age -= birthday;
+=======
+                age.year -= birthday.year;
+                age.month -= birthday.month;
+                age.day -= birthday.day;
+                if (age.month < 0) {
+                    age.month += 12;
+                    age.year -= 1;
+                }
+                if (age.day < 0) {
+                    if (age.month == 2) {
+                        age.day += 29;
+                    }
+                    else if (age.month == (3, 6, 9, 11)) {
+                        age.day += 31;
+                    }
+                    else age.day += 30;
+                    age.month -= 1;
+>>>>>>> Stashed changes
                 }
             bool isYoungerThan(person comparable) {
                 if (age.year < comparable.age.year)          return true;
@@ -49,6 +75,7 @@ class program3 {
             int preTwenties = 0 ;
             int twenties = 0; 
             int thirties = 0;
+
             void update() {
                 if (people.first != nullptr) {
                     linkClass<person>::nodeClass* cursor = people.first;
@@ -128,12 +155,16 @@ class program3 {
             data_memory.file.write(data_input);
         };
         void showData() {
-            data_memory.update();
             linkClass<person>::nodeClass* cursor = data_memory.people.first;
             int i = 1;
             if (cursor != nullptr) {
+                data_memory.people.first->data.update();
+                data_memory.oldest = cursor->data;
+                data_memory.younger = cursor->data;
+                data_memory.preTwenties = data_memory.twenties = data_memory.thirties = 0;
                 while (cursor != nullptr)
                 {
+                    cursor->data.update();
                     cout << i << ") " << "________________________________________" << "\n";
                     cout << "\t nombre: " << cursor->data.name << "\n";
                     cout << "\t fecha de nacimiento: " << cursor->data.birthday.day << "/" << cursor->data.birthday.month << "/" << cursor->data.birthday.year << " ";
@@ -141,6 +172,11 @@ class program3 {
                     cout << "\t\t\t " << cursor->data.age.year << " anios" << "\n";
                     cout << "\t\t\t " << cursor->data.age.month << " meses" << "\n";
                     cout << "\t\t\t " << cursor->data.age.day << " dias" << "\n";
+                    if (cursor->data.age.year <= 20)                    data_memory.preTwenties += 1;
+                    else if (cursor->data.age.year <= 30)               data_memory.twenties += 1;
+                    else if (cursor->data.age.year > 30)                data_memory.thirties += 1;
+                    if (cursor->data.isOlderThan(data_memory.oldest))   data_memory.oldest = cursor->data;
+                    if (cursor->data.isYoungerThan(data_memory.younger))    data_memory.younger = cursor->data;
                     cursor = cursor->next;
                     i += 1;
                 }
@@ -180,6 +216,8 @@ class program3 {
                     showData();
                     break;
                 case menuOptions:
+                    data_memory.people.purgeAll();
+                    data_memory.file.inMemoryFile.purgeAll();
                     break;
                 default:
                     errormens();

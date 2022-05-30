@@ -2,9 +2,9 @@
 #include "../CppLibrary/Menu.h" 
 using std::istream; using std::ostream;
 
-struct program4 {
+class program4 {
 private:
-    struct date {
+    class date {
     public:
         long int day = 0;
         long int month = 0;
@@ -19,7 +19,7 @@ private:
         };
     };
 
-    struct person {
+    class person {
     public:
         date birthday;
         date age;
@@ -29,11 +29,19 @@ private:
             age.year -= birthday.year;
             age.month -= birthday.month;
             age.day -= birthday.day;
-            if (age.month < 0) age.month += 12;
+            if (age.month < 0) {
+                age.month += 12;
+                age.year -= 1;
+            }
             if (age.day < 0) {
-                if (age.month = 2) {
+                if (age.month == 2) {
+                    age.day += 29;
+                }
+                else if (age.month == (3, 6, 9, 11)) {
                     age.day += 31;
                 }
+                else age.day += 30;
+                age.month -= 1;
             }
         };
         bool isYoungerThan(person comparable) {
@@ -61,7 +69,7 @@ private:
         };
     };
 
-    struct memory {
+    class memory {
     public:
         linkClass<person> people;
         fileManager<person> file;
@@ -149,12 +157,16 @@ private:
         data_memory.file.write(data_input);
     };
     void showData() {
-        data_memory.update();
         linkClass<person>::nodeClass* cursor = data_memory.people.first;
         int i = 1;
         if (cursor != nullptr) {
+            data_memory.people.first->data.update();
+            data_memory.oldest = cursor->data;
+            data_memory.younger = cursor->data;
+            data_memory.preTwenties = data_memory.twenties = data_memory.thirties = 0;
             while (cursor != nullptr)
             {
+                cursor->data.update();
                 cout << i << ") " << "________________________________________" << "\n";
                 cout << "\t nombre: " << cursor->data.name << "\n";
                 cout << "\t fecha de nacimiento: " << cursor->data.birthday.day << "/" << cursor->data.birthday.month << "/" << cursor->data.birthday.year << " ";
@@ -162,6 +174,11 @@ private:
                 cout << "\t\t\t " << cursor->data.age.year << " anios" << "\n";
                 cout << "\t\t\t " << cursor->data.age.month << " meses" << "\n";
                 cout << "\t\t\t " << cursor->data.age.day << " dias" << "\n";
+                if (cursor->data.age.year <= 20)                    data_memory.preTwenties += 1;
+                else if (cursor->data.age.year <= 30)               data_memory.twenties += 1;
+                else if (cursor->data.age.year > 30)                data_memory.thirties += 1;
+                if (cursor->data.isOlderThan(data_memory.oldest))   data_memory.oldest = cursor->data;
+                if (cursor->data.isYoungerThan(data_memory.younger))    data_memory.younger = cursor->data;
                 cursor = cursor->next;
                 i += 1;
             }
