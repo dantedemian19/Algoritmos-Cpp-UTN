@@ -22,53 +22,62 @@ class program3 {
         };
     };
         class person {
-        public:
-            date birthday;
-            date age;
-            string name;
-            void update() {
-                age.getToday();
-                age.year -= birthday.year;
-                age.month -= birthday.month;
-                age.day -= birthday.day;
-                if (age.month < 0) {
-                    age.month += 12;
-                    age.year -= 1;
-                }
-                if (age.day < 0) {
-                    if (age.month == 2) {
-                        age.day += 29;
+            public:
+                date birthday;
+                date age;
+                string name;
+                void update() {
+                    age.getToday();
+                    age.year -= birthday.year;
+                    age.month -= birthday.month;
+                    age.day -= birthday.day;
+                    if (age.month < 0) {
+                        age.month += 12;
+                        age.year -= 1;
                     }
-                    else if (age.month == (3, 6, 9, 11)) {
-                        age.day += 31;
-                    }
-                    else age.day += 30;
-                    age.month -= 1;
+                    if (age.day < 0) {
+                        if (age.month == 2) {
+                            age.day += 29;
+                        }
+                        else if (age.month == (3, 6, 9, 11)) {
+                            age.day += 31;
+                        }
+                        else age.day += 30;
+                        age.month -= 1;
+                        }
+                    };
+                void print(){
+                    cout << "\t nombre: " << name << "\n";
+                    cout << "\t fecha de nacimiento: " << birthday.day << "/" << birthday.month << "/" << birthday.year << " ";
+                    cout << "\n\t desde que nacio: \n";
+                    cout << "\t\t\t " << age.year << " anios" << "\n";
+                    cout << "\t\t\t " << age.month << " meses" << "\n";
+                    cout << "\t\t\t " << age.day << " dias" << "\n";
                 }
-            bool isYoungerThan(person comparable) {
-                if (age.year < comparable.age.year)          return true;
-                else if (age.month < comparable.age.month && age.year == comparable.age.year)    return true;
-                else if (age.day < comparable.age.day && age.year == comparable.age.year && age.month == comparable.age.month)       return true;
-                else                                        return false;
+                bool isYoungerThan(person comparable) {
+                    if (age.year < comparable.age.year)          return true;
+                    else if (age.month < comparable.age.month && age.year == comparable.age.year)    return true;
+                    else if (age.day < comparable.age.day && age.year == comparable.age.year && age.month == comparable.age.month)       return true;
+                    else                                        return false;
+                };
+                bool isOlderThan(person comparable) {
+                    if (age.year > comparable.age.year)          return true;
+                    else if (age.month > comparable.age.month && age.year == comparable.age.year)    return true;
+                    else if (age.day > comparable.age.day && age.year == comparable.age.year && age.month == comparable.age.month)       return true;
+                    else                                        return false;
+                };
+                friend istream& operator>> (istream& in, person& data) {// to read from file
+                    in >> data.name;
+                    in >> data.birthday.day;
+                    in >> data.birthday.month;
+                    in >> data.birthday.year;
+                    return in;
+                };
+                friend ostream& operator << (ostream& out, person& data) { // to write into a file
+                    out << data.name << " " << data.birthday.day << " " << data.birthday.month << " " << data.birthday.year << "\n";
+                    return out;
+                };
             };
-            bool isOlderThan(person comparable) {
-                if (age.year > comparable.age.year)          return true;
-                else if (age.month > comparable.age.month && age.year == comparable.age.year)    return true;
-                else if (age.day > comparable.age.day && age.year == comparable.age.year && age.month == comparable.age.month)       return true;
-                else                                        return false;
-            };
-            friend istream& operator>> (istream& in, person& data) {// to read from file
-                in >> data.name;
-                in >> data.birthday.day;
-                in >> data.birthday.month;
-                in >> data.birthday.year;
-                return in;
-            };
-            friend ostream& operator << (ostream& out, person& data) { // to write into a file
-                out << data.name << " " << data.birthday.day << " " << data.birthday.month << " " << data.birthday.year << "\n";
-                return out;
-            };
-        };
 
         class memory {
         public:
@@ -158,6 +167,7 @@ class program3 {
             data_memory.people.addToEnd(data_input);
             data_memory.file.write(data_input);
         };
+
         void showData() {
             linkClass<person>::nodeClass* cursor = data_memory.people.first;
             int i = 1;
@@ -170,12 +180,7 @@ class program3 {
                 {
                     cursor->data.update();
                     cout << i << ") " << "________________________________________" << "\n";
-                    cout << "\t nombre: " << cursor->data.name << "\n";
-                    cout << "\t fecha de nacimiento: " << cursor->data.birthday.day << "/" << cursor->data.birthday.month << "/" << cursor->data.birthday.year << " ";
-                    cout << "\n\t desde que nacio: \n";
-                    cout << "\t\t\t " << cursor->data.age.year << " anios" << "\n";
-                    cout << "\t\t\t " << cursor->data.age.month << " meses" << "\n";
-                    cout << "\t\t\t " << cursor->data.age.day << " dias" << "\n";
+                    cursor->data.print();
                     if (cursor->data.age.year <= 20)                    data_memory.preTwenties += 1;
                     else if (cursor->data.age.year <= 30)               data_memory.twenties += 1;
                     else if (cursor->data.age.year > 30)                data_memory.thirties += 1;
@@ -190,6 +195,7 @@ class program3 {
                 cout << "\t la contidad de personas con 20 o menos es de: " << data_memory.preTwenties<< "\n";
                 cout << "\t la contidad de personas con 21 hasta 30 es de: " << data_memory.twenties << "\n";
                 cout << "\t la contidad de personas con 30 o mas es de: " << data_memory.thirties << "\n";
+                cout << "__________________________________________" << "\n";
                 pause();
             }
             else cout << "\t\t no hay datos ingresados";
