@@ -81,7 +81,7 @@ class program4 {
 
         class memory {
         public:
-            linkClass<person> people;
+            linkList<person> people;
             fileManager<person> file;
             person oldest;
             person younger;
@@ -91,7 +91,7 @@ class program4 {
 
             void update() {
                 if (people.first != nullptr) {
-                    linkClass<person>::nodeClass* cursor = people.first;
+                    linkList<person>::nodeClass* cursor = people.first;
                     people.first->data.update();
                     oldest = people.first->data;
                     younger = people.first->data;
@@ -169,7 +169,7 @@ class program4 {
         };
 
         void showData() {
-            linkClass<person>::nodeClass* cursor = data_memory.people.first;
+            linkList<person>::nodeClass* cursor = data_memory.people.first;
             int i = 1;
             if (cursor != nullptr) {
                 data_memory.people.first->data.update();
