@@ -3,7 +3,7 @@
 #include "../CppLibrary/dynamicTypes.h"
 #include "../CppLibrary/fileManager.h"
 #include <ctime>
-using std::istream; using std::ostream;
+using std::istream; using std::ostream; using std::modf;
 
 class program4 {
     private:
@@ -83,30 +83,37 @@ class program4 {
         public:
             linkList<person> people;
             fileManager<person> file;
-            person oldest;
-            person younger;
-            int preTwenties = 0 ;
-            int twenties = 0; 
-            int thirties = 0;
+            int count = 0;
+            float average = 0;
+            int lessThanAvg = 0;
+            int equalAvg = 0;
+            int moreThanAvg = 0; 
 
             void update() {
                 if (people.first != nullptr) {
+                    average = count / people.getSize();
                     linkList<person>::nodeClass* cursor = people.first;
-                    people.first->data.update();
-                    oldest = people.first->data;
-                    younger = people.first->data;
-                    preTwenties = twenties = thirties = 0;
                     while (cursor != nullptr)
                     {
-                        cursor->data.update();
-                        if (cursor->data.age.year <= 20)                    preTwenties += 1; 
-                        else if (cursor->data.age.year <= 30)               twenties += 1;
-                        else if (cursor->data.age.year > 30)                thirties += 1;
-                        if (oldest.isYoungerThan(cursor->data))    oldest = cursor->data;
-                        if (younger.isOlderThan(cursor->data))     younger = cursor->data;
+                        if (cursor->data.age.year < average) {
+                            lessThanAvg+=1;
+                        }
+                        else if (cursor->data.age.year == average) {
+                            equalAvg+=1;
+                        }
+                        else {
+                            moreThanAvg+=1;
+                        }
                         cursor = cursor->next;
                     }
                 }
+            };
+            void resetNumbers() {
+                count = 0;
+                average = 0;
+                lessThanAvg = 0;
+                equalAvg = 0;
+                moreThanAvg = 0;
             };
         };
 
@@ -169,32 +176,25 @@ class program4 {
         };
 
         void showData() {
-            linkList<person>::nodeClass* cursor = data_memory.people.first;
-            int i = 1;
+            int i = 0;
+            data_memory.resetNumbers();
+            linkList<person>::nodeClass* cursor = data_memory.people[i];
             if (cursor != nullptr) {
-                data_memory.people.first->data.update();
-                data_memory.oldest = cursor->data;
-                data_memory.younger = cursor->data;
-                data_memory.preTwenties = data_memory.twenties = data_memory.thirties = 0;
                 while (cursor != nullptr)
                 {
                     cursor->data.update();
-                    cout << i << ") " << "________________________________________" << "\n";
+                    cout << i + 1 << ") " << "________________________________________" << "\n";
                     cursor->data.print();
-                    if (cursor->data.age.year <= 20)                    data_memory.preTwenties += 1;
-                    else if (cursor->data.age.year <= 30)               data_memory.twenties += 1;
-                    else if (cursor->data.age.year > 30)                data_memory.thirties += 1;
-                    if (cursor->data.isOlderThan(data_memory.oldest))   data_memory.oldest = cursor->data;
-                    if (cursor->data.isYoungerThan(data_memory.younger))    data_memory.younger = cursor->data;
-                    cursor = cursor->next;
+                    data_memory.count += cursor->data.age.year;
                     i += 1;
+                    cursor = data_memory.people[i];
                 }
+                data_memory.update();
                 cout << "__________________________________________" << "\n";
-                cout << "\t el mas viejo es: " << data_memory.oldest.name << " con " << data_memory.oldest.age.year << " anios" << "\n";
-                cout << "\t el mas joven es: " << data_memory.younger.name << " con " << data_memory.younger.age.year << " anios" << "\n";
-                cout << "\t la contidad de personas con 20 o menos es de: " << data_memory.preTwenties<< "\n";
-                cout << "\t la contidad de personas con 21 hasta 30 es de: " << data_memory.twenties << "\n";
-                cout << "\t la contidad de personas con 30 o mas es de: " << data_memory.thirties << "\n";
+                cout << "\t promedio de edad: " << data_memory.average << " anios" << "\n";
+                cout << "\t cantidad que hay mas viejos que el promedio: " << data_memory.moreThanAvg << "\n";
+                cout << "\t cantidad que hay igual al promedio: " << data_memory.equalAvg << "\n";
+                cout << "\t cantidad que hay mas jovenes que el promedio: " << data_memory.lessThanAvg << "\n";
                 cout << "__________________________________________" << "\n";
                 pause();
             }
@@ -206,7 +206,7 @@ class program4 {
             data_memory.people = data_memory.file.inMemoryFile;
             menuClass menu;
             const int menuOptions = 3;
-            string menuTitle = "\n\t programa 3: ejercicio con una lista de fechas \n";
+            string menuTitle = "\n\t programa 4: ejercicio de promedios de edades \n";
             string menuText[menuOptions + 1] = {
                 "start",
                 " Ingresar datos de persona",
@@ -214,7 +214,6 @@ class program4 {
                 "end"
             };
             menu.declare(menuOptions, 1, menuTitle);
-            menu.menu(menuText);
             while (menu.w != menu.exit) {
                 menu.menu(menuText);
                 switch (menu.w)

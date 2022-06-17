@@ -208,13 +208,12 @@ class program3 {
             const int menuOptions = 3;
             string menuTitle = "\n\t programa 3: ejercicio con una lista de fechas \n";
             string menuText[menuOptions + 1] = {
-                "start",
+                " start",
                 " Ingresar datos de persona",
                 " ver resultados",
-                "end"
+                " end"
             };
             menu.declare(menuOptions, 1, menuTitle);
-            menu.menu(menuText);
             while (menu.w != menu.exit) {
                 menu.menu(menuText);
                 switch (menu.w)
