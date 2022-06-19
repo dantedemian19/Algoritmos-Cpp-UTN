@@ -225,7 +225,6 @@ class program3 {
                     showData();
                     break;
                 case menuOptions:
-                    data_memory.people.purgeAll();
                     data_memory.file.inMemoryFile.purgeAll();
                     break;
                 default:

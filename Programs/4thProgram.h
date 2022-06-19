@@ -3,7 +3,7 @@
 #include "../CppLibrary/dynamicTypes.h"
 #include "../CppLibrary/fileManager.h"
 #include <ctime>
-using std::istream; using std::ostream; using std::modf;
+using std::istream; using std::ostream;
 
 class program4 {
     private:
@@ -19,6 +19,9 @@ class program4 {
             day = today.tm_mday;
             month = today.tm_mon + 1;
             year = today.tm_year + 1900;
+        };
+        void print() {
+            cout << day << "/" << month << "/" << year << " ";
         };
     };
         class person {
@@ -48,8 +51,8 @@ class program4 {
                     };
                 void print(){
                     cout << "\t nombre: " << name << "\n";
-                    cout << "\t fecha de nacimiento: " << birthday.day << "/" << birthday.month << "/" << birthday.year << " ";
-                    cout << "\n\t desde que nacio: \n";
+                    cout << "\t fecha de nacimiento: "; birthday.print(); cout << "\n";
+                    cout << "\t desde que nacio: \n";
                     cout << "\t\t\t " << age.year << " anios" << "\n";
                     cout << "\t\t\t " << age.month << " meses" << "\n";
                     cout << "\t\t\t " << age.day << " dias" << "\n";
@@ -90,9 +93,10 @@ class program4 {
             int moreThanAvg = 0; 
 
             void update() {
+                int i = 0;
                 if (people.first != nullptr) {
-                    average = count / people.getSize();
-                    linkList<person>::nodeClass* cursor = people.first;
+                    average = (float) count / (float) people.getSize();
+                    linkList<person>::nodeClass* cursor = people[i];
                     while (cursor != nullptr)
                     {
                         if (cursor->data.age.year < average) {
@@ -104,16 +108,14 @@ class program4 {
                         else {
                             moreThanAvg+=1;
                         }
-                        cursor = cursor->next;
+                        i += 1;
+                        cursor = people[i];
+                        
                     }
                 }
             };
             void resetNumbers() {
-                count = 0;
-                average = 0;
-                lessThanAvg = 0;
-                equalAvg = 0;
-                moreThanAvg = 0;
+                average = count = lessThanAvg = equalAvg = moreThanAvg = 0;
             };
         };
 
@@ -200,6 +202,7 @@ class program4 {
             }
             else cout << "\t\t no hay datos ingresados";
         };
+
         void main() {
             data_memory.file.declare("datap3", "txt");
             data_memory.file.readToMemory();
@@ -225,7 +228,6 @@ class program4 {
                     showData();
                     break;
                 case menuOptions:
-                    data_memory.people.purgeAll();
                     data_memory.file.inMemoryFile.purgeAll();
                     break;
                 default:

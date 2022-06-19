@@ -4,6 +4,7 @@
 #include "2ndProgram.h"
 #include "3thProgram.h"
 #include "4thProgram.h"
+#include "5thProgram.h"
 #include "facturacion.h"
 
 class cluster{
@@ -14,6 +15,8 @@ private:
         program2 two;
         program3 three;
         program4 four;
+        program5 five;
+        //cursed
         programFacturador facturador;
     };
     void cursedPrograms() {
@@ -51,7 +54,7 @@ private:
 	void main() {
         menuClass menu;
         programClass programs;
-        const int menuOptions = 6;
+        const int menuOptions = 7;
         string menuTitle = "\n\t Programas: Algoritmos y Estructura de Datos 2022 K1091 Dante Alfonso \n";
         string menuText[menuOptions + 1] = {
             "start",
@@ -59,13 +62,14 @@ private:
             " programa 2: ejercicio de lista de fechas",
             " programa 3: ejercicio con una lista de fechas",
             " programa 4: ejercicio de promedios de edades",
+            " programa 5: ejercicio de ordenamiento",
             " programas cursed",
             "end"
         };
         menu.declare(menuOptions,0, menuTitle);
         while (menu.w != menu.exit) {
             menu.menu(menuText);
-            wait(2);
+            wait();
             switch (menu.w)
             {
             case 1:
@@ -81,6 +85,9 @@ private:
                 programs.four.run();
                 break;
             case 5:
+                programs.five.run();
+                break;
+            case menuOptions-1:
                 cursedPrograms();
                 break;
             case menuOptions:
