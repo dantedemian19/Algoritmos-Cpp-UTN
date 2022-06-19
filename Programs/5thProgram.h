@@ -107,9 +107,16 @@ private:
         int i = 0;
         bool showed = false;// for count if show data
         linkList<person>::nodeClass* cursor = data_memory.people[i];
-        date ageComparator = { 0,0,0 };
-        cout << "\t ingrese mayor a que edad desea filtar los datos: \n\t  ";
-        cin >> ageComparator.year;
+        date ageComparator;
+        while (1) {
+            cout << "\t ingrese mayor a que edad desea filtar los datos: \n\t  ";
+            cin >> ageComparator.year;
+            if (ageComparator.year < 1) {
+                cls();
+                cout << "\t (ingrese un valor valido)";
+            }
+            else break;
+        }
         if (cursor != nullptr) {
             while (cursor != nullptr)
             {
