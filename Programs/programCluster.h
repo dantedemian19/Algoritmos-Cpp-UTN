@@ -32,7 +32,7 @@ private:
             "end"
         };
         const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
-        menu.declare(menuTitle, menuText);
+        menu.declare(menuTitle, menuText, menuOptions);
         while (menu.w != menu.exit) {
             menu.menu();
             wait(2);
@@ -69,7 +69,7 @@ private:
             "end"
         };
         const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
-        menu.declare(menuTitle, menuText,0);
+        menu.declare(menuTitle, menuText, menuOptions,0);
         while (menu.w != menu.exit) {
             menu.menu();
             wait();

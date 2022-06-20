@@ -234,7 +234,7 @@ class program4 {
                 "end"
             };
             const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
-            menu.declare(menuTitle,menuText);
+            menu.declare(menuTitle, menuText, menuOptions);
             while (menu.w != menu.exit) {
                 menu.menu();
                 switch (menu.w)
