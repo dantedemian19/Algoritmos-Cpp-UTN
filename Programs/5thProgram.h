@@ -44,12 +44,13 @@ private:
 
     void inputData() {
         person data_input;
+        cout << "\n";
         while (1) {
             cout << "\t ingrese el nombre del alumno : ";
             cin >> data_input.name;
             if (data_input.name.length() == 0) {
                 cls();
-                cout << "\t (ingrese un valor valido)";
+                cout << "\n\t (ingrese un valor valido)";
             }
             else break;
         }
@@ -58,7 +59,7 @@ private:
             cin >> data_input.birthday.year;
             if (data_input.birthday.year < 1) {
                 cls();
-                cout << "\t (ingrese un valor valido)";
+                cout << "\n\t (ingrese un valor valido)";
             }
             else break;
         }
@@ -67,7 +68,7 @@ private:
             cin >> data_input.birthday.month;
             if (data_input.birthday.month < 1 || data_input.birthday.month > 12) {
                 cls();
-                cout << "\t (ingrese un valor valido)";
+                cout << "\n\t (ingrese un valor valido)";
             }
             else break;
         }
@@ -76,7 +77,7 @@ private:
             cin >> data_input.birthday.day;
             if (data_input.birthday.day < 1 || verify(data_input)) {
                 cls();
-                cout << "\t (ingrese un valor valido)";
+                cout << "\n\t (ingrese un valor valido)";
             }
             else break;
         }
@@ -89,11 +90,12 @@ private:
         linkList<person>::nodeClass* cursor = data_memory.people[i];
         data_memory.updatePeople();
         data_memory.people.quickSort(0, (data_memory.people.getSize() - 1));
+        cout << "\n";
         if (cursor != nullptr) {
             while (cursor != nullptr)
             {
                 cout << i + 1 << ") " << "________________________________________" << "\n";
-                cout << "\t\t"; cursor->data.print();
+                cursor->data.print();
                 i += 1;
                 cursor = data_memory.people[i];
             }
@@ -123,7 +125,7 @@ private:
                 cursor->data.update();
                 if (cursor->data.age > ageComparator) {
                     cout << i + 1 << ") " << "________________________________________" << "\n";
-                    cout << "\t\t"; cursor->data.print();
+                    cursor->data.print();
                     showed = true;
                 }
                 i += 1;
@@ -139,23 +141,43 @@ private:
         else cout << "\t\t no hay datos ingresados";
     };
 
+    void showPremise(string title) {
+        string premise[] = {
+            "\t Procesar un conjunto de personas de las cuales conocemos su nombre y fecha de nacimiento.",
+            "\t Se debe : ",
+            "\t\t 1) Mostrar por pantalla nos nombres y las fechas de nacimiento ordenado por edad.",
+            "\t\t 2) Mostrar por pantalla todos aquellos cuya edad supere los 24 anios."
+        };
+        int i = 0;
+        cout << title;
+        int size = sizeof(premise) / sizeof(premise[0]);
+        while (i < size) {
+            cout << "\n";
+            cout << premise[i];
+            i += 1;
+        };
+        cout << "\n\n";
+        pause();
+    };
+
     void main() {
         data_memory.file.declare("datap3", "txt");
         data_memory.file.readToMemory();
         data_memory.people = data_memory.file.inMemoryFile;
         menuClass menu;
-        const int menuOptions = 4;
         string menuTitle = "\n\t programa 5: ejercicio de ordenamiento \n";
-        string menuText[menuOptions + 1] = {
+        string menuText[] = {
             "start",
             " Ingresar datos de persona",
             " ver todos los datos",
             " ver personas mayores a una edad",
+            " ver enunciado",
             "end"
         };
-        menu.declare(menuOptions, 1, menuTitle);
+        const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+        menu.declare(menuTitle,menuText);
         while (menu.w != menu.exit) {
-            menu.menu(menuText);
+            menu.menu();
             switch (menu.w)
             {
             case 1:
@@ -166,6 +188,9 @@ private:
                 break;
             case 3:
                 filterData();
+                break;
+            case menuOptions-1:
+                showPremise(menuTitle);
                 break;
             case menuOptions:
                 data_memory.file.inMemoryFile.purgeAll();

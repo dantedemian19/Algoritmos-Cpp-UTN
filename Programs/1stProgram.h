@@ -36,6 +36,7 @@ private:
         input temp_input;
         do
         {
+            cout << "\n";
             cout << "Ingrese edad: ";
             cin >> temp_input.number;
             cls();
@@ -47,6 +48,7 @@ private:
     void showData() {
             output data_output;
             data_output.average_age = data_memory.ages / data_memory.quantity; // calculo del promedio de edades
+            cout << "\n";
             cout << "El promedio de edad es: " << data_output.average_age << "\n";
             switch (data_output.option()) {
             case 1:
@@ -66,18 +68,18 @@ private:
     };
     
     void main() {
-        
-        const int menuOptions = 3;
+
         string menuTitle = "\n\t Programa 1: Calculo de promedios \n";
-        string menuText[menuOptions + 1] = {
+        string menuText[] = {
             "start",
             " Ingresar Alumno",
             " ver promedio y resultados",
             "end"
         };
-        menu.declare(menuOptions, 1, menuTitle);
+        const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+        menu.declare(menuTitle,menuText);
         while (menu.w != menu.exit) {
-            menu.menu(menuText);
+            menu.menu();
             switch (menu.w)
             {
             case 1:

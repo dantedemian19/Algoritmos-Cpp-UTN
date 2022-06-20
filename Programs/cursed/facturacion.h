@@ -250,9 +250,8 @@ int main() {
 	int cantArt = _CANTARTICULOS;
 	inicializarArt(vecArt, cantArt);  // limpiar el vectro para sacar la ' basura'
 	menuClass menu;
-	const int menuOptions = 6;
 	string menuTitle = "\n\t programa: ejercicio con una lista de articulos \n";
-	string menuText[menuOptions + 1] = {
+	string menuText[] = {
 		" start",
 		" cargar articulos",
 		" facturar articulos",
@@ -261,9 +260,10 @@ int main() {
 		" mostrar todos los articulos",
 		" end"
 	};
-	menu.declare(menuOptions, 1, menuTitle);
+	const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+	menu.declare(menuTitle, menuText);
 	while (menu.w != menu.exit) {
-		menu.menu(menuText);
+		menu.menu();
 		switch (menu.w) {
 		case 1:
 			pedirArt(vecArt, cantArt);  // carga los datos de los articulos

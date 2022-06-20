@@ -203,22 +203,40 @@ class program4 {
             else cout << "\t\t no hay datos ingresados";
         };
 
+        void showPremise(string title) {
+            string premise[] = {
+            "\t Queremos conocer el promedio de edades de un conjunto de personas (este programa ya lo hicimos) y ALGO M�S, para lo cual nos informan la edad de cada una de ellas mediante una lista.",
+            "\t\t Adem�s se debe calcular y mostrar cu�ntas personas tienen una edad mayor al promedio y cu�ntas personas tienen una edad menor al promedio."
+            };
+            int i = 0;
+            cout << title;
+            int size = sizeof(premise) / sizeof(premise[0]);
+            while (i < size) {
+                cout << "\n";
+                cout << premise[i];
+                i += 1;
+            };
+            cout << "\n\n";
+            pause();
+        };
+
         void main() {
             data_memory.file.declare("datap3", "txt");
             data_memory.file.readToMemory();
             data_memory.people = data_memory.file.inMemoryFile;
             menuClass menu;
-            const int menuOptions = 3;
             string menuTitle = "\n\t programa 4: ejercicio de promedios de edades \n";
-            string menuText[menuOptions + 1] = {
+            string menuText[] = {
                 "start",
                 " Ingresar datos de persona",
                 " ver resultados",
+                " ver enunciado",
                 "end"
             };
-            menu.declare(menuOptions, 1, menuTitle);
+            const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+            menu.declare(menuTitle,menuText);
             while (menu.w != menu.exit) {
-                menu.menu(menuText);
+                menu.menu();
                 switch (menu.w)
                 {
                 case 1:
@@ -226,6 +244,9 @@ class program4 {
                     break;
                 case 2:
                     showData();
+                    break;
+                case menuOptions-1:
+                    showPremise(menuTitle);
                     break;
                 case menuOptions:
                     data_memory.file.inMemoryFile.purgeAll();

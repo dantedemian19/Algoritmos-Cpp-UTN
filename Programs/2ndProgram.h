@@ -171,6 +171,7 @@ class program2 {
         void showData() {
             linkList<person>::nodeClass* cursor = data_memory.people.first;
             int i = 1;
+            cout << "\n";
             if (cursor != nullptr) {
                 data_memory.people.first->data.update();
                 data_memory.oldest = cursor->data;
@@ -205,18 +206,18 @@ class program2 {
             data_memory.file.readToMemory();
             data_memory.people = data_memory.file.inMemoryFile;
             menuClass menu;
-            const int menuOptions = 3;
             string menuTitle = "\n\t programa 3: ejercicio con una lista de fechas \n";
-            string menuText[menuOptions + 1] = {
+            string menuText[] = {
                 "start",
                 " Ingresar datos de persona",
                 " ver resultados",
+                " ver enunciado",
                 "end"
             };
-            menu.declare(menuOptions, 1, menuTitle);
-            menu.menu(menuText);
+            const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+            menu.declare(menuTitle,menuText);
             while (menu.w != menu.exit) {
-                menu.menu(menuText);
+                menu.menu();
                 switch (menu.w)
                 {
                 case 1:
@@ -224,6 +225,9 @@ class program2 {
                     break;
                 case 2:
                     showData();
+                    break;
+                case 3:
+
                     break;
                 case menuOptions:
                     data_memory.file.inMemoryFile.purgeAll();

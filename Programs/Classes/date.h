@@ -33,6 +33,9 @@ class date {
         friend bool operator == (date data, date comparable) {
             return (data.day == comparable.day && data.month == comparable.month && data.year == comparable.year);
         };
+        friend bool operator != (date data, date comparable) {
+            return !(data == comparable);
+        };
         friend bool operator <= (date data, date comparable) {
             return (comparable == data || comparable < data);
         };

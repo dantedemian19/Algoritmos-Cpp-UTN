@@ -5,7 +5,8 @@
 #include "3thProgram.h"
 #include "4thProgram.h"
 #include "5thProgram.h"
-#include "facturacion.h"
+#include "6thProgram.h"
+#include "./cursed/facturacion.h"
 
 class cluster{
 private:
@@ -16,23 +17,24 @@ private:
         program3 three;
         program4 four;
         program5 five;
+        program6 six;
         //cursed
         programFacturador facturador;
     };
     void cursedPrograms() {
         menuClass menu;
         programClass programs;
-        const int menuOptions = 3;
         string menuTitle = "\n\t Programas: Algoritmos y Estructura de Datos 2022 K1091 Dante Alfonso \n";
-        string menuText[menuOptions + 1] = {
+        string menuText[] = {
             "start",
             " programa 1: programa de facturacion",
             " show meme",
             "end"
         };
-        menu.declare(menuOptions, 0, menuTitle);
+        const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+        menu.declare(menuTitle, menuText);
         while (menu.w != menu.exit) {
-            menu.menu(menuText);
+            menu.menu();
             wait(2);
             switch (menu.w)
             {
@@ -54,21 +56,22 @@ private:
 	void main() {
         menuClass menu;
         programClass programs;
-        const int menuOptions = 7;
         string menuTitle = "\n\t Programas: Algoritmos y Estructura de Datos 2022 K1091 Dante Alfonso \n";
-        string menuText[menuOptions + 1] = {
+        string menuText[] = {
             "start",
             " programa 1: ejercicio de promedios",
             " programa 2: ejercicio de lista de fechas",
             " programa 3: ejercicio con una lista de fechas",
             " programa 4: ejercicio de promedios de edades",
             " programa 5: ejercicio de ordenamiento",
+            " programa 6: ejercicio de corte de control y apareo",
             " programas cursed",
             "end"
         };
-        menu.declare(menuOptions,0, menuTitle);
+        const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
+        menu.declare(menuTitle, menuText,0);
         while (menu.w != menu.exit) {
-            menu.menu(menuText);
+            menu.menu();
             wait();
             switch (menu.w)
             {
@@ -87,6 +90,9 @@ private:
             case 5:
                 programs.five.run();
                 break;
+            case 6:
+                programs.six.run();
+                break;
             case menuOptions-1:
                 cursedPrograms();
                 break;
@@ -97,6 +103,7 @@ private:
                 errormens();
                 break;
             }
+        wait();
         }
     };
 public:
