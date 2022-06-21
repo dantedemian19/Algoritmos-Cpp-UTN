@@ -204,7 +204,7 @@ class program3 {
         void showPremise(string title) {
             string premise[] = {
             "\t Queremos conocer el promedio de edades de un conjunto de personas (este programa ya lo hicimos) y ALGO M�S, para lo cual nos informan la edad de cada una de ellas mediante una lista.",
-            "\t\t Adem�s se debe calcular y mostrar cu�ntas personas tienen una edad mayor al promedio y cu�ntas personas tienen una edad menor al promedio."
+            "\t\t Ademas se debe calcular y mostrar cu�ntas personas tienen una edad mayor al promedio y cuantas personas tienen una edad menor al promedio."
             };
             int i = 0;
             cout << title;

@@ -67,6 +67,23 @@ private:
             pause();
     };
     
+    void showPremise(string title) {
+        string premise[] = {
+        "\t Para un conjunto de estudiantes de los que conocemos su edad debemos calcular el promedio y mostrar en la pantalla si se trata de alumnos de primaria, secundaria o universidad.\n",
+        "\t Si el promedio es menos a 12 años son alumnos de primaria; si el promedio está entre 12 y 18 años se trata de alumnos de secundaria; para promedio mayores se trata de alumnos universitarios.\n"
+        };
+        int i = 0;
+        cout << title;
+        int size = sizeof(premise) / sizeof(premise[0]);
+        while (i < size) {
+            cout << "\n";
+            cout << premise[i];
+            i += 1;
+        };
+        cout << "\n\n";
+        pause();
+    };
+
     void main() {
 
         string menuTitle = "\n\t Programa 1: Calculo de promedios \n";
@@ -74,6 +91,7 @@ private:
             "start",
             " Ingresar Alumno",
             " ver promedio y resultados",
+            " ver enunciado",
             "end"
         };
         const int menuOptions = sizeof(menuText) / sizeof(menuText[0]) - 1;
@@ -88,8 +106,11 @@ private:
             case 2:
                 showData();
                 break;
+            case menuOptions-1:
+                showPremise(menuTitle);
+                break;
             case menuOptions:
-                
+                            
                 break;
             default:
                 errormens();

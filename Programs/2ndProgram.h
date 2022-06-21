@@ -201,12 +201,31 @@ class program2 {
             }
             else cout << "\t\t no hay datos ingresados";
         };
+
+        void showPremise(string title) {
+            string premise[] = {
+            "\t Procesar las edades de un conjunto de personas de las cuales nos informan su nombre y fecha de nacimiento.\n",
+            "\t Se debe mostrar por pantalla el nombre de la persona mayor y el nombre de la persona menor. \n",
+            "\t Supongan que no hay dos personas que hayan nacido el mismo día."
+            };
+            int i = 0;
+            cout << title;
+            int size = sizeof(premise) / sizeof(premise[0]);
+            while (i < size) {
+                cout << "\n";
+                cout << premise[i];
+                i += 1;
+            };
+            cout << "\n\n";
+            pause();
+        };
+
         void main() {
             data_memory.file.declare("datap3", "txt");
             data_memory.file.readToMemory();
             data_memory.people = data_memory.file.inMemoryFile;
             menuClass menu;
-            string menuTitle = "\n\t programa 3: ejercicio con una lista de fechas \n";
+            string menuTitle = "\n\t programa 2: ejercicio con una lista de fechas \n";
             string menuText[] = {
                 "start",
                 " Ingresar datos de persona",
