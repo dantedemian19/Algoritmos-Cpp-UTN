@@ -35,7 +35,7 @@ class person {
             cout << "\t\t\t " << age.year << " anios" << "\n";
             cout << "\t\t\t " << age.month << " meses" << "\n";
             cout << "\t\t\t " << age.day << " dias" << "\n";
-        }
+        };
         bool isYoungerThan(person comparable) {
             return (age < comparable.age);
         };

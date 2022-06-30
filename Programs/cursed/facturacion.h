@@ -141,9 +141,9 @@ void createInvoice(tVecArt vecArt, int cantArt) {
 	totalArt = 0;
 	int cantidad = 0;
 	cout << "Facturar......." << endl;
-	cout << "Ingresar codigo ('0'=fin)" << endl;
-	cin >> codigo;
 	while (codigo[0] != '0') {
+		cout << "Ingresar codigo ('0'=fin)" << endl;
+		cin >> codigo;
 		indiceArt = buscarArt(vecArt, codigo, 0, cantArt);
 		// buscar devuelve -1 si el articulo no existe o la posicion del articulo
 		if (indiceArt > -1) {   // el articulo existe
@@ -168,8 +168,6 @@ void createInvoice(tVecArt vecArt, int cantArt) {
 			}
 		}
 		else  cout << "No existe el articulo!!" << endl;
-		cout << "Ingresar codigo ('0'=fin)" << endl;
-		cin >> codigo;
 	}
 	if (totalArt > 0) {
 		cout << "total de la factura=" << total;
